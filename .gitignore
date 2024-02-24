@@ -1,0 +1,30 @@
+# Python-specific
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Dependency directories
+dist/
+build/
+*.egg-info/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Credentials and sensitive information
+config.ini
+
+# Database
+db.sql
+db.sqlite3
