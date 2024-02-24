@@ -1,14 +1,14 @@
 TODO:
 
-    1. Start message consider bots commands and help.
+1. The start message should include bot commands and help.
 
-    2. Bots commands:
-        – /allbooks
-        – /already
-        – /help
-        – /now
-        – /start
-        – /vote
-        – /voteresults
+2. Bot commands:
+   - /allbooks
+   - /already
+   - /help
+   - /now
+   - /start
+   - /vote
+   - /voteresults
 
-    3. Wotting is only for TV Readers Club.
+3. Voting is only for the TV Readers Club.

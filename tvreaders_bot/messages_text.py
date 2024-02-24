@@ -1,15 +1,14 @@
-GREETINGS = """Hi there! I glad to see you my friend!
+GREETINGS = """Hi there! It's wonderful to see you, my friend!
 
-This is TradingView Readers Club.
-Now you can watch the list of books and leave your revirew.
+Welcome to the TradingView Readers Club.
+You can now explore our list of books and share your reviews.
 
-Bots commands:
- /allbooks
- /already
- /help
- /now
- /start
- /vote
- /voteresults
-
+Bot commands:
+ - /allbooks
+ - /already
+ - /help
+ - /now
+ - /start
+ - /vote
+ - /voteresults
 """
