@@ -18,21 +18,21 @@ class Book:
     host: str
 
 
-async def get_all_books():
+async def get_all_books() -> list[Book]:
     all_books = []
     async with aiosqlite.connect(config.SQLITE_DB_FILE) as connection:
         async with connection.execute('SELECT * FROM book') as cursor:
             async for row in cursor:
                 book = Book(
                     id=row[0],
-                    ordering=row[5],
                     created_at=row[1],
                     title=row[2],
                     author=row[3],
+                    state=row[4],
+                    ordering=row[5],
                     book_state=row[6],
                     read_start=row[7],
-                    host=row[8],
-                    state=row[4]
+                    host=row[8]
                 )
                 all_books.append(book)
     return all_books
