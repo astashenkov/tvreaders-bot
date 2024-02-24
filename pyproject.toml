@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 python-telegram-bot = "^20.8"
+aiosqlite = "^0.20.0"
 
 
 [build-system]
