@@ -8,31 +8,60 @@ from dataclasses import dataclass
 @dataclass
 class Book:
     id: int
-    ordering: int
-    created_at: datetime
     title: str
     author: str
-    book_state: datetime
+    created_at: datetime
     read_start: datetime
+    read_finish: datetime
+    ordering: int
     state: str
     host: str
 
 
 async def get_all_books() -> list[Book]:
-    all_books = []
-    async with aiosqlite.connect(config.SQLITE_DB_FILE) as connection:
-        async with connection.execute('SELECT * FROM book') as cursor:
-            async for row in cursor:
-                book = Book(
-                    id=row[0],
-                    created_at=row[1],
-                    title=row[2],
-                    author=row[3],
-                    state=row[4],
-                    ordering=row[5],
-                    book_state=row[6],
-                    read_start=row[7],
-                    host=row[8]
-                )
-                all_books.append(book)
+    async with aiosqlite.connect(config.SQLITE_DB_FILE) as db:
+        db.row_factory = aiosqlite.Row
+        cursor = await db.execute("""
+                SELECT
+                    id,
+                    title,
+                    author,
+                    book_state,
+                    created_at,
+                    ordering,
+                    read_start,
+                    read_finish,
+                    host
+                FROM book
+                """)
+        rows = await cursor.fetchall()
+        all_books = [Book(
+                        id=row['id'],
+                        title=row['title'],
+                        author=row['author'],
+                        state=row['book_state'],
+                        created_at=row['created_at'],
+                        ordering=row['ordering'],
+                        read_start=row['read_start'],
+                        read_finish=row['read_finish'],
+                        host=row['host']
+                    ) for row in rows]
     return all_books
+
+
+async def get_current_book() -> Book | None:
+    async with aiosqlite.connect(config.SQLITE_DB_FILE) as db:
+        db.row_factory = aiosqlite.Row
+        cursor = await db.execute("""SELECT * FROM book WHERE book_state = 'reading'""")
+        item = await cursor.fetchone()
+        if item:
+            return Book(
+                id=item['id'],
+                title=item['title'],
+                author=item['author'],
+                state=item['book_state'],
+                created_at=item['created_at'],
+                ordering=item['ordering'],
+                read_start=item['read_start'],
+                read_finish=item['read_finish'],
+                host=item['host'])
